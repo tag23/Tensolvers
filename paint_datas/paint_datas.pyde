@@ -159,4 +159,4 @@ def mouseWheel(event):
     elif strkWeight <= 1:
         strkWeight += 1
     elif  45 > strkWeight >= 1:
-        strkWeight += event.getCount()
+        strkWeight -= event.getCount()
