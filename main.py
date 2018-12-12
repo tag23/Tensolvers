@@ -1,27 +1,13 @@
-from preamble import *
+import os
+import subprocess
+from paint_datas.digits_recognition import module2 as dr
 
 def main():
-    import sys
-    print("Python version: {}".format(sys.version))
+    #os.system("/paint_datas/application.windows64/paint_datas.exe")
+    dr.main()
 
-    import pandas as pd
-    print("pandas version: {}".format(pd.__version__))
+    #subprocess.call('python paint_datas/digits_recognition/module2.py', shell=True)
 
-    import matplotlib
-    print("matplotlib version: {}".format(matplotlib.__version__))
-
-    import numpy as np
-    print("NumPy version: {}".format(np.__version__))
-
-    import scipy as sp
-    print("SciPy version: {}".format(sp.__version__))
-
-    import IPython
-    print("IPython version: {}".format(IPython.__version__))
-
-    import sklearn
-    print("scikit-learn version: {}".format(sklearn.__version__))
-    pass
 
 if __name__ == "__main__":
     main()
