@@ -2,3 +2,9 @@ README.md
 /venv
 venv
 venv/
+/.idea
+/".idea"
+.idea
+".idea"
+.idea/
+".idea"/
