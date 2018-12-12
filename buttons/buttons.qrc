@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>paint_datas_button1.png</file>
+    <file>paint_datas_button.png</file>
+  </qresource>
+</RCC>
