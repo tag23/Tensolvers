@@ -11,21 +11,16 @@ class Panel:
         
     def setup(self):
         strokeWeight(1)
-        
-    def config(self, x, y):
-        self.x, self.y = x, y
-        fill(255)
+    
+    def zone(self):
+        fill(77)
         noStroke()
-        rect(0, 0, width, 12)
-        textSize(10)
-        fill(255, 10, 155)
-        text("Config: Stroke weight({0}), mouseX({1}), mouseY({2})".format(self.strkWeight, self.mx, self.my), self.x, self.y)
-        textSize(9)
-        fill(25, 25, 125)
-        text("r=reset all | UP=increase weight | DOWN=decrease weight | LMB=white | RMB=black", self.x + width/2-30 - 22, self.y)
+        rect(0, 0, 192, 480)
+        rect(448, 0, 192, 480)
+        rect(192, 0, 448, 112)
+        rect(192, 368, 448, 112)
         
     def draw(self):
-        self.config(0, 10)
         stroke(self.strkColor)
         strokeWeight(self.strkWeight)
         
@@ -95,13 +90,27 @@ class Interface():
         for btn in self.btns:
             btn.draw()
             self.func[btn.bFunc](btn)
+        self.config(0, 10)
+        
+    def whiteToBlack(self, img):
+        inverted_img = createImage(img.width, img.height, RGB)
+        for x in range(img.width):
+            for y in range(img.height):
+                i = ((y * img.width)+x); 
+                if img.pixels[i] == color(255, 255, 255):
+                    inverted_img.pixels[i] = color(0, 0, 0)
+                elif img.pixels[i] == color(0, 0, 0):
+                    inverted_img.pixels[i] = color(255, 255, 255)
+        return inverted_img
             
     def saveToFile(self, btn):
         if btn != None:
             if btn.mouseIsClicked():
                 save('img/screen.png')
                 photo = loadImage('img/screen.png')
-                photo = get(0, 41, 640, 440)
+                photo = get(192, 112, 256, 256)
+                photo.filter(THRESHOLD, 0.3)
+                photo = self.whiteToBlack(photo)
                 photo.save('img/frame.png')
         else:
             return None
@@ -113,11 +122,24 @@ class Interface():
                 strkColor = btn.bColor
         else:
             return None
+    
+    def config(self, x, y):
+        self.x, self.y = x, y
+        fill(255)
+        noStroke()
+        rect(0, 0, width, 12)
+        textSize(10)
+        fill(255, 10, 155)
+        text("Config: Stroke weight({0}), mouseX({1}), mouseY({2})".format(strkWeight, pmouseX, pmouseY), self.x, self.y)
+        textSize(9)
+        fill(25, 25, 125)
+        text("r=reset all | UP=increase weight | DOWN=decrease weight | LMB=black | RMB=white", self.x + width/2-30 - 22, self.y)
 
 interface = None
 panel = None
 strkWeight = 1
 strkColor = 1
+
 def setup():
     global panel
     global interface
@@ -133,8 +155,9 @@ def draw():
     global strkWeight
     global strkColor
     panel = Panel(mouseX, mouseY, pmouseX, pmouseY)
-    interface.draw()
     panel.draw()
+    panel.zone()
+    interface.draw()
 
 def keyPressed():
     global strkWeight
@@ -151,6 +174,7 @@ def keyPressed():
         if keyCode == DOWN:
             if strkWeight > 0:
                 strkWeight -= 1
+                
 def mouseWheel(event): 
     global strkWeight
     e = event.getCount()
