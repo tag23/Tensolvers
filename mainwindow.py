@@ -7,14 +7,14 @@
 # WARNING! All changes made in this file will be lost!
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
-from PyQt5.QtCore import pyqtSlot
+#from PyQt5.QtCore import pyqtSlot
 from paint_datas.digits_recognition import module2 as dr
 import random as rm
 from os import system
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("Digits-Recognizer")
         MainWindow.resize(550, 401)
         font = QtGui.QFont()
         font.setKerning(True)
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Digits-Recognizer"))
         self.pushButton.setText(_translate("MainWindow", "Открыть картинку"))
         self.pushButton_2.setText(_translate("MainWindow", "Распознать"))
         self.label.setText(_translate("MainWindow", "Прогноз от программы"))
